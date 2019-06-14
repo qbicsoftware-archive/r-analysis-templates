@@ -1,0 +1,82 @@
+<html>
+<head>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="nfcore/rnaseq: a bioinformatics best-practice analysis pipeline used for RNA sequencing data at the National Genomics Infrastructure at SciLifeLab Stockholm, Sweden.">
+  <title>nfcore/rnaseq Pipeline Report</title>
+</head>
+<body>
+<div style="font-family: Helvetica, Arial, sans-serif; padding: 30px; max-width: 800px; margin: 0 auto;">
+
+<img src="cid:nfcorernaseqlogo">
+
+<h1>nfcore/rnaseq: version 1.3dev</h1>
+<h2>Run Name: clever_ramanujan</h2>
+
+
+    <div style="color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;">
+        nfcore/rnaseq execution completed successfully!
+    </div>
+    
+
+<p>The workflow was completed at <strong>Wed Feb 27 19:55:00 CET 2019</strong> (duration: <strong>4h 18m 26s</strong>)</p>
+<p>The command used to launch the workflow was as follows:</p>
+<pre style="white-space: pre-wrap; overflow: visible; background-color: #ededed; padding: 15px; border-radius: 4px; margin-bottom:30px;">nextflow run nf-core/rnaseq -r dev -profile cfc --reads '/sfs/7/workspace/ws/iiiga01-QBOBA-0/RAW/*.fastq.gz' --star_index /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/star --fasta /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/sequence/GRCh38_r92.all.fasta --gtf /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/annotation/Homo_sapiens.GRCh38.92.gtf --singleEnd --saveReference -resume --skip_genebody_coverage -ansi</pre>
+
+<h3>Pipeline Configuration:</h3>
+<table style="width:100%; max-width:100%; border-spacing: 0; border-collapse: collapse; border:0; margin-bottom: 30px;">
+    <tbody style="border-bottom: 1px solid #ddd;">
+        <tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Run Name</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>clever_ramanujan</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Reads</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/sfs/7/workspace/ws/iiiga01-QBOBA-0/RAW/*.fastq.gz</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Data Type</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>Single-End</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Genome</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>false</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Strandedness</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>None</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Trim R1</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>0</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Trim R2</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>0</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Trim 3' R1</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>0</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Trim 3' R2</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>0</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Aligner</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>STAR</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>STAR Index</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/star</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>GTF Annotation</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/annotation/Homo_sapiens.GRCh38.92.gtf</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Save Reference</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>Yes</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Save Trimmed</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>No</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Save Intermeds</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>No</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Max Memory</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>60 GB</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Max CPUs</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>20</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Max Time</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>5d 20h</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Output dir</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>./results</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Working dir</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/sfs/7/workspace/ws/iiiga01-QBOBA-0/work</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Container</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>nfcore/rnaseq:latest</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline Release</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>dev</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Current home</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/home-link/qeamo01</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Current user</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>qeamo01</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Current path</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/sfs/7/workspace/ws/iiiga01-QBOBA-0</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Script dir</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/home-link/qeamo01/.nextflow/assets/nf-core/rnaseq</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Config Profile</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>cfc</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Date Started</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>Wed Feb 27 15:36:34 CET 2019</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Date Completed</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>Wed Feb 27 19:55:00 CET 2019</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline script file path</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>/home-link/qeamo01/.nextflow/assets/nf-core/rnaseq/main.nf</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline script hash ID</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>215dff3925f4781c0b950061a3fda67a</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline repository Git URL</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>https://github.com/nf-core/rnaseq.git</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline repository Git Commit</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>0af5a42e4bb503d172b0bf185949c063d25fbc5b</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Pipeline Git branch/tag</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>dev</pre></td></tr>
+<tr><th style='text-align:left; padding: 8px 0; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'>Docker image</th><td style='text-align:left; padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;'><pre style='white-space: pre-wrap; overflow: visible;'>nfcore/rnaseq:latest</pre></td></tr>
+    </tbody>
+</table>
+
+<p>nfcore/rnaseq is a bioinformatics best-practice analysis pipeline used for RNA sequencing data at the National Genomics Infrastructure at SciLifeLab Stockholm, Sweden.</p>
+<p>The pipeline uses Nextflow, a bioinformatics workflow tool. It pre-processes raw data from FastQ inputs, aligns the reads and performs extensive quality-control on the results.</p>
+<p>For more information, please see the pipeline homepage: <a href="https://github.com/nf-core/rnaseq">https://github.com/nf-core/rnaseq</a></p>
+
+<hr style="height: 3px; padding: 0; margin: 24px 0; background-color: #e1e4e8; border: 0;">
+
+<img src="cid:scilifelablogo">
+<img src="data:image/png;base64,null">
+
+</div>
+
+</body>
+</html>

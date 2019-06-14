@@ -1,0 +1,25 @@
+Sample Name	Internal Name	Condition: treatment	Condition: cell	Source	RIN/DIN
+QBOBA025A0	S38363	Non-diabetic	Pre-adipocyte	Patient 1	9,6
+QBOBA026A8	S38364	Non-diabetic	Pre-adipocyte	Patient 2	9,6
+QBOBA027AG	S38365	Non-diabetic	Pre-adipocyte	Patient 3	9,7
+QBOBA028AO	S38366	Non-diabetic	Pre-adipocyte	Patient 4	9,8
+QBOBA029AW	S38367	Pre-diabetic	Pre-adipocyte	Patient 5	9,3
+QBOBA030A1	S38368	Pre-diabetic	Pre-adipocyte	Patient 6	9,6
+QBOBA031A9	S38369	Pre-diabetic	Pre-adipocyte	Patient 7	9,8
+QBOBA032AH	S38370	Pre-diabetic	Pre-adipocyte	Patient 8	9,8
+QBOBA033AP	S38371	Diabetic	Pre-adipocyte	Patient 9	9,6
+QBOBA034AX	S38372	Diabetic	Pre-adipocyte	Patient 10	9,7
+QBOBA035A7	S38373	Diabetic	Pre-adipocyte	Patient 11	9,8
+QBOBA036AF	S38374	Diabetic	Pre-adipocyte	Patient 12	9,9
+QBOBA037AN	S38375	Non-diabetic	Adipocyte	Patient 13	9,8
+QBOBA038AV	S38376	Non-diabetic	Adipocyte	Patient 14	9,6
+QBOBA039A5	S38377	Non-diabetic	Adipocyte	Patient 15	9,7
+QBOBA040A8	S38378	Non-diabetic	Adipocyte	Patient 16	9,7
+QBOBA041AG	S38379	Pre-diabetic	Adipocyte	Patient 17	9,7
+QBOBA042AO	S38380	Pre-diabetic	Adipocyte	Patient 18	9,7
+QBOBA043AW	S38381	Pre-diabetic	Adipocyte	Patient 19	9,8
+QBOBA044A6	S38382	Pre-diabetic	Adipocyte	Patient 20	9,8
+QBOBA045AE	S38383	Diabetic	Adipocyte	Patient 21	9,8
+QBOBA046AM	S38384	Diabetic	Adipocyte	Patient 22	9,8
+QBOBA047AU	S38385	Diabetic	Adipocyte	Patient 23	9,8
+QBOBA048A4	S38386	Diabetic	Adipocyte	Patient 24	9,8
