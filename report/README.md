@@ -32,3 +32,5 @@ The directory _report_ should contain:
 8) **./results/MultiQC/multiqc_report.html**
 
 9) **./results/fastqc_reports.zip**: do not forget to zip this folder.
+
+10) **./QualityAssessment.csv**: add a RIN column to the sample preparation sheet and manually fill it in with the corresponding RIN values (if these are available).
