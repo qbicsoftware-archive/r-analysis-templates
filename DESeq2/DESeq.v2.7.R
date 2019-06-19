@@ -72,10 +72,11 @@ dir.create("DESeq2/results/final")
 ######################################
 
 ###1)check input data path
-path_count_table = "../results/featureCounts/merged_gene_counts.txt"
-metadata_path <- "../metadata/QSFAN_sample_preparations.tsv"
-path_contrasts <- "contrasts.tsv"
-path_design <- "design.txt"
+path_count_table = "input/merged_gene_counts.txt"
+metadata_path <- "input/Sample_preparations.tsv"
+path_contrasts <- "input/contrasts.tsv"
+path_design <- "input/design.txt"
+requested_genes_path <- "input/requested_genes.txt"
 
 ##2) load count table
 ### Modified from csv to tsv, NA strings NA
@@ -128,18 +129,13 @@ stopifnot(identical(names(count.table),row.names(m)))
 
 #to get all possible pairwise comparisons, make a combined factor
 
-m$x <- apply(m[ ,c("condition_phenotype","condition_treatment","condition_extraction_time")],1,paste, collapse = "_")
-m$gencond <- apply(m[, c("condition_phenotype", "condition_treatment")],1,paste,collapse = "_")
-m$time <- m$condition_extraction_time
-m$condition_extraction_time <- NULL
+conditions <- grepl(colnames(m),pattern = "condition_")
+m$x <- apply(m[ ,conditions],1,paste, collapse = "_")
 
 
 ###4) run DESeq function
 design <- read.csv(path_design, sep="\t", header = F)
 cds <- DESeqDataSetFromMatrix( countData =count.table, colData =m, design = eval(parse(text=as.character(design[[1]]))))
-cds$condition_treatment <- relevel(cds$condition_treatment, ref = "Control")
-cds$condition_phenotype <- relevel(cds$condition_phenotype, ref = "RAGE_flox")
-cds$time <- relevel(cds$time, ref="1H")
 cds <- DESeq(cds,  parallel = TRUE)
 
 
@@ -216,28 +212,27 @@ kip = unique(kip$Ensembl_ID)
 
 if (length(kip) > 20) {
   set.seed(10)
-  kip1 = sample(kip,size = 20)
+  kip1 = sample(kip,size = 2)
 } else {
   kip1 = kip
   }
 
 for (i in kip1){
-  d <- plotCounts(cds, gene=i, intgroup=c("condition_phenotype", "condition_treatment","time"), returnData=TRUE,normalized = T)
+  d <- plotCounts(cds, gene=i, intgroup=c("x"), returnData=TRUE,normalized = T)
   d$variable = row.names(d)
-  plot <- ggplot(data=d, aes(x=time, y=count, fill=condition_treatment)) +
+  plot <- ggplot(data=d, aes(x=x, y=count, fill=x)) +
             geom_boxplot(position=position_dodge()) +
             geom_jitter(position=position_dodge(.8)) +
-            facet_grid(cols= vars(condition_treatment), rows=vars(condition_phenotype)) +
+            facet_grid(cols= vars(x)) +
             ggtitle(paste("Gene ",i,sep="")) + xlab("") + ylab("Normalized gene counts") + theme_bw() +
             theme(text = element_text(size=12),
                axis.text.x = element_text(angle=45, vjust=1,hjust=1))
-  plot
   ggsave(filename=paste("DESeq2/results/plots/plots_example_genes/",i,".png",sep=""), width=10, height=5, plot=plot)
   print(i)
 }
 
 #4.5) make plots of interesting genes
-gene_ids <- read.table("requested_genes.txt", col.names = "requested_gene_name")
+gene_ids <- read.table(requested_genes_path, col.names = "requested_gene_name")
 gene_ids$requested_gene_name <- sapply(gene_ids$requested_gene_name, toupper)
 bg1$gene_name <- sapply(bg1$gene_name, toupper)
 
@@ -246,12 +241,12 @@ kip2_Ensembl <- kip2$Ensembl_ID
 kip2_gene_name <- kip2$gene_name
 for (i in c(1:length(kip2_Ensembl)))
 {
-  d <- plotCounts(cds, gene=kip2_Ensembl[i], intgroup=c("condition_phenotype", "condition_treatment","time"), returnData=TRUE,normalized = T)
+  d <- plotCounts(cds, gene=kip2_Ensembl[i], intgroup=c("x"), returnData=TRUE,normalized = T)
   d$variable = row.names(d)
-  plot <- ggplot(data=d, aes(x=time, y=count, fill=condition_treatment)) +
+  plot <- ggplot(data=d, aes(x=x, y=count, fill=x)) +
     geom_boxplot(position=position_dodge()) +
     geom_jitter(position=position_dodge(.8)) +
-    facet_grid(cols= vars(condition_treatment), rows=vars(condition_phenotype)) +
+    facet_grid(cols= vars(x)) +
     ggtitle(paste("Gene ",kip2_gene_name[i],sep="")) + xlab("") + ylab("Normalized gene counts") + theme_bw() +
     theme(text = element_text(size=12),
           axis.text.x = element_text(angle=45, vjust=1,hjust=1))
@@ -334,9 +329,9 @@ dev.off()
 
  #### Visualization of distance using PCA plots
 #pdf("DESeq2/results/plots/PCA_plot_of_distances.pdf")
-pcaData <- plotPCA(rld,intgroup=c("gencond","time"),ntop = dim(rld)[1], returnData=TRUE)
+pcaData <- plotPCA(rld,intgroup=c("x"),ntop = dim(rld)[1], returnData=TRUE)
 percentVar <- round(100*attr(pcaData, "percentVar"))
-pca <- ggplot(pcaData, aes(PC1, PC2, color=gencond, shape=time)) +
+pca <- ggplot(pcaData, aes(PC1, PC2, color=x)) +
   geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2], "% variance")) +
