@@ -1,0 +1,6 @@
+- provide the input filename as arguments
+- try to see how it is possible to read them in with flags before them (eg --filename)
+- beware that you need to know how every output files is named
+- build the Docker container
+- modify the env.yml file so that it contains packages that are actually needed.
+- is there test data available to be uploaded on github too (maybe DESeq2 has already something)
