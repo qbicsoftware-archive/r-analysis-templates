@@ -105,7 +105,7 @@ Quality Assessment of the RNA samples can be found [here](./QualityAssessment.pd
 \
 ")
 
-datatable(df_QA, caption = "Quality Assessment by c.ATG", extensions = c('Buttons', 'FixedColumns'), "Autofill", options = list(dom = 'Bfrtip', scrollX = T, scrollCollapse = T, buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+datatable(df_QA, caption = "Quality Assessment", extensions = c('Buttons', 'FixedColumns'), "Autofill", options = list(dom = 'Bfrtip', scrollX = T, scrollCollapse = T, buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
 ```
 
 ```{r noRIN_block, echo=FALSE, results='asis', eval=no_RIN}
@@ -149,6 +149,8 @@ library(tidyverse)
 ```{r}
 library(DT)
 df_DE <- read.table("./results/MultiQC/multiqc_data/multiqc_general_stats.txt", header=TRUE, sep="\t")
+is.num <- sapply(df_DE, is.numeric)
+df_DE[is.num] <- lapply(df_DE[is.num], round, 2)
 columns <- c("Sample", "featureCounts_mqc.generalstats.featurecounts.percent_assigned", "featureCounts_mqc.generalstats.featurecounts.Assigned",
              "STAR_mqc.generalstats.star.uniquely_mapped_percent", "Cutadapt_mqc.generalstats.cutadapt.percent_trimmed", 
              "FastQC_mqc.generalstats.fastqc.percent_duplicates", "FastQC_mqc.generalstats.fastqc.percent_gc",
