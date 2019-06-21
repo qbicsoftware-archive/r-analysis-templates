@@ -149,20 +149,20 @@ library(tidyverse)
 ```{r}
 library(DT)
 df_DE <- read.table("./results/MultiQC/multiqc_data/multiqc_general_stats.txt", header=TRUE, sep="\t")
-is.num <- sapply(df_DE, is.numeric)
-df_DE[is.num] <- lapply(df_DE[is.num], round, 2)
+# is.num <- sapply(df_DE, is.numeric)
+# df_DE[is.num] <- lapply(df_DE[is.num], round, 2)
 columns <- c("Sample", "featureCounts_mqc.generalstats.featurecounts.percent_assigned", "featureCounts_mqc.generalstats.featurecounts.Assigned",
              "STAR_mqc.generalstats.star.uniquely_mapped_percent", "Cutadapt_mqc.generalstats.cutadapt.percent_trimmed", 
              "FastQC_mqc.generalstats.fastqc.percent_duplicates", "FastQC_mqc.generalstats.fastqc.percent_gc",
              "FastQC_mqc.generalstats.fastqc.total_sequences")
 df_DE_selected = df_DE %>% select(one_of(columns))
 n_rows = nrow(df_DE_selected)
-metadata <- df_DE <- read.table("./DESeq2/metadata/QMCDP_sample_preparations.tsv", header=TRUE, sep="\t")
-metadata = metadata[,c("QBiC.Code","Secondary.Name")]
-metadata$Sample = metadata$QBiC.Code
-metadata$QBiC.Code = NULL
-table_complete = merge(metadata,df_DE_selected,by="Sample")
-datatable(table_complete, caption = "Final list DeSEQ2", colnames= c("Sample Name", "Secondary Name", "% Assigned", "Assigned", "% Aligned", "% Trimmed", "% Dups", "% GC", "Seqs"), extensions = c('Buttons', 'FixedColumns'), "Autofill", options = list(dom = 'Bfrtip', scrollX = T, scrollCollapse = T, buttons = c('copy', 'csv', 'excel', 'pdf', 'print'), pageLength = 10)) #args not working: lengthMenu = c(5, 10, 20, n_rows)))
+# metadata <- df_DE <- read.table("./DESeq2/metadata/QMCDP_sample_preparations.tsv", header=TRUE, sep="\t")
+# metadata = metadata[,c("QBiC.Code","Secondary.Name")]
+# metadata$Sample = metadata$QBiC.Code
+# metadata$QBiC.Code = NULL
+# table_complete = merge(metadata,df_DE_selected,by="Sample")
+datatable(df_DE_selected, caption = "Final list DeSEQ2", colnames= c("Sample Name", "Secondary Name", "% Assigned", "Assigned", "% Aligned", "% Trimmed", "% Dups", "% GC", "Seqs"), extensions = c('Buttons', 'FixedColumns'), "Autofill", options = list(dom = 'Bfrtip', scrollX = T, scrollCollapse = T, buttons = c('copy', 'csv', 'excel', 'pdf', 'print'), pageLength = 10)) #args not working: lengthMenu = c(5, 10, 20, n_rows)))
 ```
 
 ## Mapping Statistics
