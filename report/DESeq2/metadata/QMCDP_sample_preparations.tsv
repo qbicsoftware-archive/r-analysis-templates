@@ -1,0 +1,7 @@
+QBiC Code	Secondary Name	Lab ID	Sample Type	Source	Source Name(s)	Source Lab ID(s)	Extract Code(s)	Extract Name(s)	Extract Lab ID(s)	Condition: cell_type
+QMCDP007A3	pWPIonly_S1 ; WPIonly		RNA	Homo sapiens Cell Line 1	pWPIonly_S1		QMCDP001AN	pWPIonly_S1 ; WPIonly		WPIonly
+QMCDP008AB	pWPIonly_S2 ; WPIonly		RNA	Homo sapiens Cell Line 2	pWPIonly_S2		QMCDP002AV	pWPIonly_S2 ; WPIonly		WPIonly
+QMCDP009AJ	pWPIonly_S3 ; WPIonly		RNA	Homo sapiens Cell Line 3	pWPIonly_S3		QMCDP003A5	pWPIonly_S3 ; WPIonly		WPIonly
+QMCDP010AM	pWPIHXB_S1 ; WPIHXB		RNA	Homo sapiens Cell Line 4	pWPIHXB_S1		QMCDP004AD	pWPIHXB_S1 ; WPIHXB		WPIHXB
+QMCDP011AU	pWPIHXB_S2 ; WPIHXB		RNA	Homo sapiens Cell Line 5	pWPIHXB_S2		QMCDP005AL	pWPIHXB_S2 ; WPIHXB		WPIHXB
+QMCDP012A4	pWPIHXB_S3 ; WPIHXB		RNA	Homo sapiens Cell Line 6	pWPIHXB_S3		QMCDP006AT	pWPIHXB_S3 ; WPIHXB		WPIHXB
