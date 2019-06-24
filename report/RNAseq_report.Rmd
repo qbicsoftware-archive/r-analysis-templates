@@ -29,7 +29,7 @@ PM = as.character(df$Project.Manager)
 <!-- load config.yaml -->
 ```{r load_config, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
 library(yaml)
-config <- yaml.load_file("config.yaml")
+config <- read_yaml("config.yml")
 ```
 
 ---
