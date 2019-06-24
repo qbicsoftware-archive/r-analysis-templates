@@ -88,11 +88,16 @@ Introduction and Aims.
 ```{r setup, echo=FALSE}
 library(DT)
 # condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table, otherwise another statement.
+filename = "./QualityAssessment.csv"
 no_RIN = FALSE
 RIN=FALSE
-df_QA <- read.table("./QualityAssessment.csv", header=TRUE, sep="\t")
-if ("RIN" %in% colnames(df_QA)){
-  RIN <- TRUE
+if(file.exists(filename)){
+  df_QA <- read.table(filename, header=TRUE, sep="\t")
+  if ("RIN" %in% colnames(df_QA)){
+    RIN <- TRUE
+  } else {
+    no_RIN <- TRUE
+  }
 } else {
   no_RIN <- TRUE
 }
