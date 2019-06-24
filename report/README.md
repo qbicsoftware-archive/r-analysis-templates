@@ -34,3 +34,13 @@ The directory _report_ should contain:
 9) **./results/fastqc_reports.zip**: do not forget to zip this folder.
 
 10) **./QualityAssessment.csv**: add a RIN column to the sample preparation sheet and manually fill it in with the corresponding RIN values (if these are available).
+
+## OPTIONAL FILES
+
+11) **./contrasts.tsv**: if you have contrasts, they should be defined as strings containing "vs" in the header of this file.
+
+12) **./GO/***: if you have executed GO enrichment. The folder should contain both the dotplots and the table of the GO terms that were enriched.
+
+13) **./KEGG/***: if you have performed KEGG enrichment. This folder is supposed to include the subfolder ./KEGG/pathway_plots.
+
+14) **./DEXSeq/***: if you have executed Differential Exon Usage (DEU) analysis. This folder is supposed to include the subfolder ./DEXSeq/plots.
