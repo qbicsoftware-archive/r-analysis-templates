@@ -87,12 +87,12 @@ Introduction and Aims.
 
 ```{r setup, echo=FALSE}
 library(DT)
-# condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table, otherwise another statement.
-filename = "./QualityAssessment.csv"
+# condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table; if there is no RIN column, or no ./QualityAssessment.csv file, print "RIN values are not available for this project."
+QAfile = "./QualityAssessment.csv"
 no_RIN = FALSE
 RIN=FALSE
-if(file.exists(filename)){
-  df_QA <- read.table(filename, header=TRUE, sep="\t")
+if(file.exists(QAfile)){
+  df_QA <- read.table(QAfile, header=TRUE, sep="\t")
   if ("RIN" %in% colnames(df_QA)){
     RIN <- TRUE
   } else {
@@ -274,13 +274,30 @@ df_DE <- read.table("./DESeq2/results/final/DE_list_DESeq2.tsv", header=TRUE, se
 datatable(df_DE, caption = "Table containing DE genes", extensions = c('Buttons', 'FixedColumns'), "Autofill", options = list(dom = 'Bfrtip', scrollX = T, scrollCollapse = T, buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
 ```
 
-<!-- If special contrasts have been requested -->
-Additional tables for all individual contrasts are provided in [DE_tables](./DESeq2/results/tables/):
+```{r setup2, echo=FALSE}
+library(DT)
+# condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table; if there is no RIN column, or no ./QualityAssessment.csv file, print "RIN values are not available for this project."
+Contrastsfile = "./contrasts.tsv"
+contr=FALSE
+if(file.exists(Contrastsfile)){
+  df_contr <- read.table(Contrastsfile, header=TRUE, sep="\t")
+  names = grep('vs', colnames(df_contr), value=TRUE)
+  if (length(names) != 0){
+    contr <- TRUE
+  }
+}
+```
 
-(example:)
-* final_list_DESeq2.tsv: tab-separated file containing a list of all genes and their log2 fold change for the different contrasts compared.
-* DE_genes_Diabetic_Pre_adipocyte_vs_Diabetic_Adipocyte: this table contains only genes that were differentially expressed in contrast diabetic pre-adipocyte vs diabetic adipocyte.
-[...]
+```{r contrasts_block, echo=FALSE, results='asis', eval=contr}
+cat("***
+Additional tables for all individual contrasts are provided in [DE_tables](./DESeq2/results/tables/):
+\
+")
+
+for (i in 1:length(names)){
+  cat(paste("* ", names[i], "\n"))
+}
+```
 
 **Please note that the number of differentially expressed genes can be shrinked if one wishes to focus only on the genes with a very meaningful fold change.**
 
@@ -329,7 +346,7 @@ cat("***
 # Outlook")
 ```
 ```{r conditional_outlook_content, echo=FALSE, results='asis', eval=!is.null(config$outlook)}
-print(config$outlook, quote = FALSE)
+cat(config$outlook)
 ```
 
 ***
