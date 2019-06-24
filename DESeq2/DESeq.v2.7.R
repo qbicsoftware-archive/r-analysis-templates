@@ -1,4 +1,4 @@
-#Analysis pipeline from raw read count table to differential expression lists using DESeq2
+# Analysis pipeline from raw read count table to differential expression lists using DESeq2
 # Author: Stefan Czemmel
 # Contributors: Gisela Gabernet
 # MIT License
@@ -71,12 +71,23 @@ dir.create("DESeq2/results/tables")
 dir.create("DESeq2/results/final")
 ######################################
 
-###1)check input data path
+#1)check input data path
 path_count_table = "input/merged_gene_counts.txt"
 metadata_path <- "input/Sample_preparations.tsv"
-path_contrasts <- "input/contrasts.tsv"
 path_design <- "input/design.txt"
+path_contrasts <- "input/contrasts.tsv"
 requested_genes_path <- "input/requested_genes.txt"
+# ## provide these files as arguments:
+# args = commandArgs(trailingOnly=TRUE)
+# if (length(args)<3) {
+#   stop("Three arguments must be supplied (merged gene counts, sample preparations sheet and design - OPTIONALS: list of contrasts and requested genes).\n", call.=FALSE)
+# }
+# path_count_table = args[1]
+# metadata_path <- args[2]
+# path_design <- args[3]
+# path_contrasts <- args[4]
+# requested_genes_path <- args[5]
+
 
 ##2) load count table
 ### Modified from csv to tsv, NA strings NA
