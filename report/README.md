@@ -19,7 +19,7 @@ The directory _report_ should contain:
     It would be great to also have directly parseable information regarding:    
         - **PM and PI email addresses**    
         - **university/institution/department**    
-        - **Description**: this could be directly parsed from the description section in the qPortal: if the description is not written well enough and/or we need to add something, we are free to. NOTE: which is the description that gets parsed? The one at the very top, under the project name, or "Detailed description" at the bottom?
+        - **Description**: this could be directly parsed from the description section in the qPortal, that we add when registering a project and can be modified at any time.
  
 4) **./results/pipeline_info/software_versions.csv** : this file, that is now output by the dev version, and will be officially present in the next release of the nextflow/rna-seq pipeline, is parsed in order to retrieve the information about the versions of the software used by the pipeline.
 
