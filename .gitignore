@@ -4,3 +4,5 @@ DESeq2/DESeq2/DESeq2.RData
 .DS_Store
 */.DS_Store
 .Rproj.user
+.RData
+.Rhistory
