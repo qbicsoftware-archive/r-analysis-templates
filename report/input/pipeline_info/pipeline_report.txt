@@ -1,0 +1,64 @@
+========================================
+ nfcore/rnaseq: version 1.3dev
+========================================
+Run Name: clever_ramanujan
+
+## nfcore/rnaseq execution completed successfully! ##
+
+
+## nfcore/rnaseq execution completed successfully! ##
+
+
+
+
+The workflow was completed at Wed Feb 27 19:55:00 CET 2019 (duration: 4h 18m 26s)
+
+The command used to launch the workflow was as follows:
+
+  nextflow run nf-core/rnaseq -r dev -profile cfc --reads '/sfs/7/workspace/ws/iiiga01-QBOBA-0/RAW/*.fastq.gz' --star_index /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/star --fasta /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/sequence/GRCh38_r92.all.fasta --gtf /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/annotation/Homo_sapiens.GRCh38.92.gtf --singleEnd --saveReference -resume --skip_genebody_coverage -ansi
+
+
+
+Pipeline Configuration:
+-----------------------
+ - Run Name: clever_ramanujan
+ - Reads: /sfs/7/workspace/ws/iiiga01-QBOBA-0/RAW/*.fastq.gz
+ - Data Type: Single-End
+ - Genome: false
+ - Strandedness: None
+ - Trim R1: 0
+ - Trim R2: 0
+ - Trim 3' R1: 0
+ - Trim 3' R2: 0
+ - Aligner: STAR
+ - STAR Index: /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/star
+ - GTF Annotation: /sfs/4/sfs7/qbic/reference_genomes/Homo_sapiens/DNA/Ensembl_GRCh38_r90/annotation/Homo_sapiens.GRCh38.92.gtf
+ - Save Reference: Yes
+ - Save Trimmed: No
+ - Save Intermeds: No
+ - Max Memory: 60 GB
+ - Max CPUs: 20
+ - Max Time: 5d 20h
+ - Output dir: ./results
+ - Working dir: /sfs/7/workspace/ws/iiiga01-QBOBA-0/work
+ - Container: nfcore/rnaseq:latest
+ - Pipeline Release: dev
+ - Current home: /home-link/qeamo01
+ - Current user: qeamo01
+ - Current path: /sfs/7/workspace/ws/iiiga01-QBOBA-0
+ - Script dir: /home-link/qeamo01/.nextflow/assets/nf-core/rnaseq
+ - Config Profile: cfc
+ - Date Started: Wed Feb 27 15:36:34 CET 2019
+ - Date Completed: Wed Feb 27 19:55:00 CET 2019
+ - Pipeline script file path: /home-link/qeamo01/.nextflow/assets/nf-core/rnaseq/main.nf
+ - Pipeline script hash ID: 215dff3925f4781c0b950061a3fda67a
+ - Pipeline repository Git URL: https://github.com/nf-core/rnaseq.git
+ - Pipeline repository Git Commit: 0af5a42e4bb503d172b0bf185949c063d25fbc5b
+ - Pipeline Git branch/tag: dev
+ - Docker image: nfcore/rnaseq:latest
+
+
+--
+nfcore/rnaseq is a bioinformatics best-practice analysis pipeline used for RNA sequencing data at the National Genomics Infrastructure at SciLifeLab Stockholm, Sweden.
+The pipeline uses Nextflow, a bioinformatics workflow tool. It pre-processes raw data from FastQ inputs, aligns the reads and performs extensive quality-control on the results.
+For more information, please see the pipeline homepage: https://github.com/nf-core/rnaseq
