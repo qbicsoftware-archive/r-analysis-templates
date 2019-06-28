@@ -3,6 +3,7 @@ library(ggplot2)
 library(reshape2)
 library(pheatmap)
 library(pathview)
+library(AnnotationDbi)
 
 # Need to load library for your species
 library(org.Mm.eg.db)
