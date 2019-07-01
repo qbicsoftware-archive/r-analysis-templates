@@ -115,8 +115,9 @@ for (file in contrast_files){
             
             entrez_ids = mapIds(org.Mm.eg.db, keys=as.character(gene.data.subset$Ensembl_ID), column = "ENTREZID", keytype="ENSEMBL", multiVals="first")
             
-            row.names(gene.data.subset) <- entrez_ids
-
+            gene.data.subset <- gene.data.subset[!(is.na(entrez_ids)),]
+            row.names(gene.data.subset) <- entrez_ids[!is.na(entrez_ids)]
+            
             gene.data.subset$Ensembl_ID <- NULL
             pathview(gene.data  = gene.data.subset,
                     pathway.id = pathway_kegg,
