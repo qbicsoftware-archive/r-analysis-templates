@@ -7,13 +7,13 @@ output:
     theme: default
     number_sections: true                   # add section numbering to headers
     df_print: paged                         # tables are printed as an html table with support for pagination over rows and columns
-    css: ./input/corp-styles.css
+    css: ./corp-styles.css
     highlight: pygments
 #   code_folding: none
 #   theme: spacelab
     pdf_document: true
 #   self_contained: no
-bibliography: ./input/references.bibtex
+bibliography: ./references.bibtex
 ---
 
 ```{r, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
@@ -40,7 +40,7 @@ author: "`r PM`, Bioinformatics Research Scientist"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 ---
 
-<img src="./input/logo.png" style="position:absolute;top:0px;right:0px;" height="200" width="200" />
+<img src="./logo.png" style="position:absolute;top:0px;right:0px;" height="200" width="200" />
 <div class="watermark">QBiC</div>
 
 
