@@ -17,8 +17,10 @@ bibliography: ./references.bibtex
 ---
 
 ```{r, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
-# Import a .tsv file downloadable from https://portal.qbic.uni-tuebingen.de/portal/web/qbic/user-database -> Projects
-df <- read.csv(file="./input/summary.tsv", sep="\t", header = TRUE)
+summary = commandArgs(trailingOnly=T)[1]
+df <- read.csv(file=summary, sep="\t", header = TRUE)
+# Import the .tsv file downloadable from https://portal.qbic.uni-tuebingen.de/portal/web/qbic/user-database -> Projects
+# df <- read.csv(file="./summary.tsv", sep="\t", header = TRUE)
 projectcode = as.character(df$Sub.Project)
 title = as.character(df$Short.Title)
 PI = as.character(df$Principal.Investigator)
@@ -29,8 +31,12 @@ PM = as.character(df$Project.Manager)
 <!-- load config.yaml + design.txt -->
 ```{r load_config, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
 library(yaml)
-config <- read_yaml("./input/config.yml")
-design <- paste(readLines("../DESeq2/input/design.txt"), collapse=" ")
+config = commandArgs(trailingOnly=T)[3]
+config <- read_yaml(config)
+#cconfig <- read_yaml("./config.yml")
+design = commandArgs(trailingOnly=T)[5]
+design <- paste(readLines(design), collapse=" ")
+# design <- paste(readLines("./design.txt"), collapse=" ")
 ```
 
 ---
@@ -88,8 +94,8 @@ Introduction and Aims.
 
 ```{r setup, echo=FALSE}
 library(DT)
-# condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table; if there is no RIN column, or no ./QualityAssessment.csv file, print "RIN values are not available for this project."
-QAfile = "./input/QualityAssessment.csv"
+# condition: if there is a RIN column in Sample_preparations.tsv, prints a statement and the table; if there is no RIN column, or no Sample_preparations.tsv file, print "RIN values are not available for this project."
+QAfile = "./DESeq2/metadata/Sample_preparations.tsv"
 no_RIN = FALSE
 RIN=FALSE
 if(file.exists(QAfile)){
@@ -107,7 +113,7 @@ if(file.exists(QAfile)){
 ```{r RIN_block, echo=FALSE, results='asis', eval=RIN}
 cat("***
 # RNA Quality Assessment
-Quality Assessment of the RNA samples can be found [here](./input/QualityAssessment.csv). The RNA Integrity Number (RIN) value has a maximum value of 10.
+Quality Assessment of the RNA samples can be found [here](./DESeq2/metadata/Sample_preparations.tsv). The RNA Integrity Number (RIN) value has a maximum value of 10.
 \
 ")
 
@@ -125,7 +131,9 @@ RIN values are not available for this project.
 ***
 ```{r}
 # Import the .csv file output by the rna-seq Nextflow pipeline
-df <- read.csv(file="./input/pipeline_info/software_versions.csv", sep="\t", header = FALSE)
+df = commandArgs(trailingOnly=T)[2]
+df <- read.csv(file=df, sep="\t", header = FALSE)
+# df <- read.csv(file="./software_versions.csv", sep="\t", header = FALSE)
 ```
 
 # Bioinformatics Pipeline
@@ -144,7 +152,7 @@ Graphs were also produced in the `RStudio v1.1.456` with `r R.version.string` ma
 # Bioinformatics Analysis
 
 ## Bioinformatics Analysis Quality Control Summary
-Quality control of the data was performed using *FASTQC*. Details on the quality control parameters are available in the `MultiQC` report of all samples available [here](./input/results/MultiQC/multiqc_report.html). `FASTQC` reports for individual samples are additionally available [here](./input/results/fastqc.zip).
+Quality control of the data was performed using *FASTQC*. Details on the quality control parameters are available in the `MultiQC` report of all samples available [here](./MultiQC/multiqc_report.html). `FASTQC` reports for individual samples are additionally available [here](`r commandArgs(trailingOnly=T)[6]`).
 The table below (extracted from the `MultiQC` report) shows a summary of the bioinformatics analysis quality control including the percentage and number of assigned reads (% Assigned, M Assigned), the percentage of aligned reads (% Aligned), trimmed reads (% Trimmed), and duplicate reads (% Dups). The mean GC content (%GC) for each of the sequences and total number of reads (M Seqs) is additionally indicated.
 
 ```{r include=FALSE}
@@ -154,7 +162,7 @@ library(tidyverse)
 
 ```{r}
 library(DT)
-df_DE <- read.table("./input/results/MultiQC/multiqc_data/multiqc_general_stats.txt", header=TRUE, sep="\t")
+df_DE <- read.table("./MultiQC/multiqc_data/multiqc_general_stats.txt", header=TRUE, sep="\t")
 is.num <- sapply(df_DE, is.numeric)
 df_DE[is.num] <- lapply(df_DE[is.num], round, 2)
 columns <- c("Sample", "featureCounts_mqc.generalstats.featurecounts.percent_assigned", "featureCounts_mqc.generalstats.featurecounts.Assigned",
@@ -162,7 +170,7 @@ columns <- c("Sample", "featureCounts_mqc.generalstats.featurecounts.percent_ass
              "FastQC_mqc.generalstats.fastqc.total_sequences")
 df_DE_selected = df_DE %>% select(one_of(columns))
 n_rows = nrow(df_DE_selected)
-metadata <- df_DE <- read.table("./DESeq2/zips/DESeq2/metadata/Sample_preparations.tsv", header=TRUE, sep="\t")
+metadata <- df_DE <- read.table("./DESeq2/metadata/Sample_preparations.tsv", header=TRUE, sep="\t")
 metadata = metadata[,c("QBiC.Code","Secondary.Name")]
 metadata$Sample = metadata$QBiC.Code
 metadata$QBiC.Code = NULL
@@ -188,13 +196,13 @@ The mapping rate of data originating from the sequencing machine depends on seve
 #### Percercentages {-}
 <center>
 ```{r, echo=F, out.width="160%", dpi=1800, fig.cap="STAR: Alignment Scores", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_star_alignment_plot_1_pc.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_star_alignment_plot_1_pc.svg")
 ```
 \
 
 #### Number of reads {-}
 ```{r, echo=F, out.width="160%", dpi=1200, fig.cap="STAR: Alignment Scores", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_star_alignment_plot_1.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_star_alignment_plot_1.svg")
 ```
 </center>
 \
@@ -205,14 +213,14 @@ The read distribution of mapped reads over different genome feature (like CDS ex
 ### Percercentages {-}
 <center>
 ```{r, echo=F, out.width="160%", dpi=1200, fig.cap="RSeQC: Read Distribution", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_rseqc_read_distribution_plot_1_pc.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_rseqc_read_distribution_plot_1_pc.svg")
 ```
 </center>
 
 ### Number of reads {-}
 <center>
 ```{r, echo=F, out.width="160%", dpi=1200, fig.cap="RSeQC: Read Distribution", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_rseqc_read_distribution_plot_1.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_rseqc_read_distribution_plot_1.svg")
 ```
 </center>
 
@@ -226,14 +234,14 @@ The gene assignments of featureCounts are shown below. Interpretation of the dif
 ### Percercentages {-}
 <center>
 ```{r, echo=F, out.width="160%", dpi=1200, fig.cap="featureCounts: Assignments", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_featureCounts_assignment_plot_1_pc.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_featureCounts_assignment_plot_1_pc.svg")
 ```
 </center>
 
 ### Number of reads {-}
 <center>
 ```{r, echo=F, out.width="160%", dpi=1200, fig.cap="featureCounts: Assignments", fig.align='center'}
-knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_featureCounts_assignment_plot_1.svg")
+knitr::include_graphics("./MultiQC/multiqc_plots/svg/mqc_featureCounts_assignment_plot_1.svg")
 ```
 </center>
 
@@ -243,7 +251,7 @@ knitr::include_graphics("./input/results/MultiQC/multiqc_plots/svg/mqc_featureCo
 
 ## Raw and normalized count tables
 
-The raw count table can be found [here](./DESeq2/zips/DESeq2/raw_counts/raw_counts.txt). The normalized count table is available [here](./DESeq2/zips/DESeq2/results/tables): rlog_transformed.read.counts.tsv.
+The raw count table can be found [here](./DESeq2/raw_counts/raw_counts.txt). The normalized count table is available [here](./DESeq2/results/count_tables): rlog_transformed.read.counts.tsv.
 
 ## Overview - First Exploration of the Data
 
@@ -251,14 +259,14 @@ The raw count table can be found [here](./DESeq2/zips/DESeq2/raw_counts/raw_coun
 A PCA plot of the normalized expression values was created to visualize the overall effect of experimental variations and any batch effects among samples.
 
 ```{r, echo=F, out.width="2000px", dpi=1200, fig.cap="", fig.align='center'}
-knitr::include_graphics("./DESeq2/zips/DESeq2/results/plots/PCA_plot.png")
+knitr::include_graphics("./DESeq2/results/plots/PCA_plot.png")
 ```
 
 ### Sample distance heatmap
 A sample distance heatmap was generated from the distances of the normalized expression values for all samples. The closer the distance is to 0, the overall samples gene expression are more similar to each other.
 
 ```{r, echo=F, out.width="2000px", dpi=1200, fig.cap="", fig.align='center'}
-knitr::include_graphics("./DESeq2/zips/DESeq2/results/plots/Heatmaps_of_distances.png")
+knitr::include_graphics("./DESeq2/results/plots/Heatmaps_of_distances.png")
 ```
 
 ## Differentially Expressed Genes (DEGs)
@@ -266,7 +274,7 @@ knitr::include_graphics("./DESeq2/zips/DESeq2/results/plots/Heatmaps_of_distance
 ### List of differentially expressed genes
 
 Analysis of the differential gene expression was performed using `DESeq2`. Genes were considered differentially expressed genes (DEG) when the adjusted p-value was lower than 0.05 (padj < 0.05). The adjusted p-value is calculated in the `DESeq2` package with the Benjamini-Hochberg method and helps reduce the number of false postives (not real differentially expressed genes). The model design in DESeq2 was: `r cat(design)`.
-The list of all the differentially expressed genes is shown below; The full table, where the differentially expressed genes are marked with DE in the filter1 column, can be found [here](./DESeq2/zips/DESeq2/results/final/final_list_DESeq2.tsv).
+The list of all the differentially expressed genes is shown below; The full table, where the differentially expressed genes are marked with DE in the filter1 column, can be found [here](./DESeq2/results/final/final_list_DESeq2.tsv).
 
 ```{r}
 # library(DT)
@@ -277,7 +285,8 @@ The list of all the differentially expressed genes is shown below; The full tabl
 ```{r setup2, echo=FALSE}
 library(DT)
 # condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table; if there is no RIN column, or no ./QualityAssessment.csv file, print "RIN values are not available for this project."
-Contrastsfile = "../DESeq2/input/contrasts.tsv"
+Contrastsfile = commandArgs(trailingOnly=T)[4]
+# Contrastsfile = "../DESeq2/input/contrasts.tsv"
 contr=FALSE
 if(file.exists(Contrastsfile)){
   df_contr <- read.table(Contrastsfile, header=TRUE, sep="\t")
@@ -290,7 +299,7 @@ if(file.exists(Contrastsfile)){
 
 ```{r contrasts_block, echo=FALSE, results='asis', eval=contr}
 cat("***
-Additional tables for all individual contrasts are provided [here](./DESeq2/zips/DESeq2/results/tables):
+Additional tables for all individual contrasts are provided [here](./DESeq2/results//home/silvia/Documents/rnaseq_downstream/r-analysis-templates/report/DESeq2/results/DE_genes_tables):
 \
 ")
 
@@ -303,7 +312,7 @@ for (i in 1:length(names)){
 
 ### Plot normalized counts of the genes
 
-Plots of the normalized counts were generated for the all the genes. Count normalization was performed by sequencing depth and adding a pseudocount of 1/2 to allow for log scale plotting. The plots are available at [plot_candidate_genes](./DESeq2/zips/DESeq2/results/plots/plots_requested_genes).
+Plots of the normalized counts were generated for the all the genes. Count normalization was performed by sequencing depth and adding a pseudocount of 1/2 to allow for log scale plotting. The plots are available at [plot_candidate_genes](./DESeq2/results/plots/plots_requested_genes).
 
 <!-- In case GO analysis was also included -->
 ```{r conditional_GO, echo=FALSE, results='asis', eval=config$GO}
@@ -334,7 +343,6 @@ design = config$DEXSeq_design
 cat(paste("## Differential Exon Usage
 Analysis of the differential exon usage was performed using DEXSeq. Exons were considered differentially used (DEU) when the adjusted p-value was lower than 0.1 (padj < 0.1); the adjusted p-value helps reduce the number of false postives (not real differentially used exons). For each gene, the model design in DEXSeq had the formula: ", design, ". The list of all the differentially used exons can be found [here](./input/DEXSeq/DEXSeq_results_significant.txt).", sep=""))
 ```
-\
 
 ```{r conditional_DEU_results2, echo=FALSE, results='asis', eval=config$DEU}
 cat("### Fitted Expression Values Visualization
