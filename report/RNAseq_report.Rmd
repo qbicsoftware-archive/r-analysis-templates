@@ -14,11 +14,18 @@ output:
     pdf_document: true
 #   self_contained: no
 bibliography: ./references.bibtex
+params:
+  path_summary: ""
+  path_versions: ""
+  path_design: ""
+  path_config: ""
+  path_contrasts: ""
+  path_fastqc: ""
 ---
 
+
 ```{r, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
-summary = commandArgs(trailingOnly=T)[1]
-df <- read.csv(file=summary, sep="\t", header = TRUE)
+df <- read.csv(file=params$path_summary, sep="\t", header = TRUE)
 # Import the .tsv file downloadable from https://portal.qbic.uni-tuebingen.de/portal/web/qbic/user-database -> Projects
 # df <- read.csv(file="./summary.tsv", sep="\t", header = TRUE)
 projectcode = as.character(df$Sub.Project)
@@ -31,12 +38,8 @@ PM = as.character(df$Project.Manager)
 <!-- load config.yaml + design.txt -->
 ```{r load_config, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
 library(yaml)
-config = commandArgs(trailingOnly=T)[3]
-config <- read_yaml(config)
-#cconfig <- read_yaml("./config.yml")
-design = commandArgs(trailingOnly=T)[5]
-design <- paste(readLines(design), collapse=" ")
-# design <- paste(readLines("./design.txt"), collapse=" ")
+config <- read_yaml(params$path_config)
+design_deseq2 <- paste(readLines(params$path_design), collapse=" ")
 ```
 
 ---
@@ -49,6 +52,52 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 <img src="./logo.png" style="position:absolute;top:0px;right:0px;" height="200" width="200" />
 <div class="watermark">QBiC</div>
 
+```{r, bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
+# library("optparse")
+# # provide the following files as arguments:
+# option_list = list(
+#   make_option(c("-s", "--summary"), type="character", default=NULL, help="details about project members", metavar="character"),
+#   make_option(c("-v", "--versions"), type="character", default=NULL, help="versions of the tools used", metavar="character"),
+#   make_option(c("-d", "--design"), type="character", default=NULL, help="design linear model path", metavar="character"),
+#   make_option(c("-cfg", "--config"), type="character", default=NULL, help="paragraphs to be included in the report", metavar="character"),
+#   make_option(c("-c", "--contrasts"), type="character", default=NULL, help="contrast matrix file", metavar="character"),
+#   make_option(c("-f", "--fastqc"), type="character", default=NULL, help="zipped fastqc reports for all files", metavar="character")
+# )
+# 
+# opt_parser = OptionParser(option_list=option_list)
+# opt = parse_args(opt_parser)
+# 
+# if (is.null(opt$summary)){
+#   print_help(opt_parser)
+#   stop("Details about project members need to be provided!")
+# } else {
+#   path_summary = opt$summary
+# }
+# if (is.null(opt$versions)){
+#   print_help(opt_parser)
+#   stop("Information about software versions need to be provided!")
+# } else {
+#   path_versions = opt$versions
+# }
+# if (is.null(opt$design)){
+#   print_help(opt_parser)
+#   stop("Linear model design file needs to be provided!")
+# } else {
+#   path_design = opt$design
+# }
+# if(!is.null(opt$config)){
+#   print_help(opt_config)
+#   stop("Information about the paragraph to include needs to be provided!")
+# } else {
+#   path_config = opt$config
+# }
+# if(!is.null(opt$contrasts)){
+#   path_contrasts = opt$contrasts
+# }
+# if(!is.null(opt$fastqc)){
+#   path_fastqc = opt$fastqc
+# }
+```
 
 ```{r docSetup, bootstrap.show.code = FALSE, dev = 'png', bootstrap.show.message=FALSE, echo=FALSE, message=FALSE}
 ## knitrBoostrap and device chunk options
@@ -131,9 +180,7 @@ RIN values are not available for this project.
 ***
 ```{r}
 # Import the .csv file output by the rna-seq Nextflow pipeline
-df = commandArgs(trailingOnly=T)[2]
-df <- read.csv(file=df, sep="\t", header = FALSE)
-# df <- read.csv(file="./software_versions.csv", sep="\t", header = FALSE)
+df <- read.csv(file=params$path_versions, sep="\t", header = FALSE)
 ```
 
 # Bioinformatics Pipeline
@@ -152,7 +199,7 @@ Graphs were also produced in the `RStudio v1.1.456` with `r R.version.string` ma
 # Bioinformatics Analysis
 
 ## Bioinformatics Analysis Quality Control Summary
-Quality control of the data was performed using *FASTQC*. Details on the quality control parameters are available in the `MultiQC` report of all samples available [here](./MultiQC/multiqc_report.html). `FASTQC` reports for individual samples are additionally available [here](`r commandArgs(trailingOnly=T)[6]`).
+Quality control of the data was performed using *FASTQC*. Details on the quality control parameters are available in the `MultiQC` report of all samples available [here](./MultiQC/multiqc_report.html). `FASTQC` reports for individual samples are additionally available [here](`r params$path_fastqc`).
 The table below (extracted from the `MultiQC` report) shows a summary of the bioinformatics analysis quality control including the percentage and number of assigned reads (% Assigned, M Assigned), the percentage of aligned reads (% Aligned), trimmed reads (% Trimmed), and duplicate reads (% Dups). The mean GC content (%GC) for each of the sequences and total number of reads (M Seqs) is additionally indicated.
 
 ```{r include=FALSE}
@@ -273,7 +320,7 @@ knitr::include_graphics("./DESeq2/results/plots/Heatmaps_of_distances.png")
 
 ### List of differentially expressed genes
 
-Analysis of the differential gene expression was performed using `DESeq2`. Genes were considered differentially expressed genes (DEG) when the adjusted p-value was lower than 0.05 (padj < 0.05). The adjusted p-value is calculated in the `DESeq2` package with the Benjamini-Hochberg method and helps reduce the number of false postives (not real differentially expressed genes). The model design in DESeq2 was: `r cat(design)`.
+Analysis of the differential gene expression was performed using `DESeq2`. Genes were considered differentially expressed genes (DEG) when the adjusted p-value was lower than 0.05 (padj < 0.05). The adjusted p-value is calculated in the `DESeq2` package with the Benjamini-Hochberg method and helps reduce the number of false postives (not real differentially expressed genes). The model design in DESeq2 was:`r cat(paste(readLines(params$path_design), collapse=" "))`.
 The list of all the differentially expressed genes is shown below; The full table, where the differentially expressed genes are marked with DE in the filter1 column, can be found [here](./DESeq2/results/final/final_list_DESeq2.tsv).
 
 ```{r}
@@ -285,11 +332,9 @@ The list of all the differentially expressed genes is shown below; The full tabl
 ```{r setup2, echo=FALSE}
 library(DT)
 # condition: if there is a RIN column in QualityAssessment.csv, prints a statement and the table; if there is no RIN column, or no ./QualityAssessment.csv file, print "RIN values are not available for this project."
-Contrastsfile = commandArgs(trailingOnly=T)[4]
-# Contrastsfile = "../DESeq2/input/contrasts.tsv"
 contr=FALSE
-if(file.exists(Contrastsfile)){
-  df_contr <- read.table(Contrastsfile, header=TRUE, sep="\t")
+if(file.exists(params$path_contrasts)){
+  df_contr <- read.table(params$path_contrasts, header=TRUE, sep="\t")
   names = grep('vs', colnames(df_contr), value=TRUE)
   if (length(names) != 0){
     contr <- TRUE
