@@ -93,7 +93,7 @@ for (file in contrast_files){
       print("Plotting heatmaps...")
       if (nrow(df) <= 100 & nrow(df) > 0) {
         conditions <- grepl("Condition", colnames(metadata))
-        metadata_cond <- cbind(QBIC_code = metadata$QBiC.Code, metadata[,conditions])
+        metadata_cond <- cbind(QBIC_code = metadata$QBiC.Code, as.data.frame(metadata[,conditions]))
         row.names(metadata_cond) <- apply(metadata_cond,1,paste, collapse = "_")
         metadata_cond$QBIC_code <- NULL
         
