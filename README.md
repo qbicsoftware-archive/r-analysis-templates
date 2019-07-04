@@ -7,5 +7,5 @@ Templates for pipeline downstream analysis with R and project reports with knitR
 ## gProfileR
 - Pathway enrichment analysis from gene lists using KEGG and Reactome pathways.
 
-## Report
+## rnaseqReport
 - Reporting of RNAseq differential gene expression and pathway analysis results.
