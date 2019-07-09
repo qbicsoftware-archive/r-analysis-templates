@@ -31,8 +31,13 @@ df <- read.csv(file=params$path_summary, sep="\t", header = TRUE)
 projectcode = as.character(df$Sub.Project)
 title = as.character(df$Short.Title)
 PI = as.character(df$Principal.Investigator)
-PI_address = as.character(df$PI.Adress)
+PI_address = as.character(df$PI.Address)
+PI_email = as.character(df$PI.E.Mail)
+PI_institute = as.character(df$PI.Institute)
+PI_organization = as.character(df$PI.Organization)
 PM = as.character(df$Project.Manager)
+PM_email = as.character(df$Manager.E.Mail)
+description = as.character(df$Description)
 ```
 
 <!-- load config.yaml + design.txt -->
@@ -68,12 +73,11 @@ opts_chunk$set(bootstrap.show.code = FALSE, dev = 'png', echo=FALSE)
 
 ***`r PI`***
 
-PI email address
+`r PI_email`
 
-PI department
+`r PI_institute`
 
-PI university / Institution
-
+`r PI_organization`
 
 `r PI_address`
 
@@ -83,7 +87,7 @@ PI university / Institution
 
 ***`r PM`***
 
-PM email address
+`r PM_email`
 
 Auf der Morgenstelle 10, 72076 Tuebingen
 
@@ -92,7 +96,7 @@ Auf der Morgenstelle 10, 72076 Tuebingen
 
 # Introduction and Aims
 
-Introduction and Aims.
+`r description`
 
 ```{r setup, echo=FALSE}
 library(DT)
