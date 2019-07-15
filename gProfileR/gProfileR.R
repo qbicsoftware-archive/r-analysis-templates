@@ -10,9 +10,9 @@ library(org.Mm.eg.db)
 
 
 outdir <- "gProfileR"
-path_contrasts <- "DESeq2/results_time_comparison/DE_genes_contrasts/"
-path_norm_counts <- "DESeq2/results_time_comparison/count_tables/rlog_transformed.read.counts.tsv"
-metadata_path <- "DESeq2/metadata/QSFAN_sample_preparations.tsv"
+path_contrasts <- "DESeq2/results/DE_genes_tables/"
+path_norm_counts <- "DESeq2/results/count_tables/rlog_transformed.read.counts.tsv"
+metadata_path <- "DESeq2/metadata/Sample_preparations.tsv"
 contrast_files <- list.files(path=path_contrasts)
 norm_counts <- read.table(file = path_norm_counts, header = T, row.names = 1, sep = "\t", quote = "")
 metadata <- read.table(file=metadata_path, sep = "\t", header = T, quote="")
