@@ -9,19 +9,23 @@ library(AnnotationDbi)
 library(org.Mm.eg.db)
 
 
-outdir <- "gProfileR"
-path_contrasts <- "DESeq2/results_time_comparison/DE_genes_contrasts/"
-path_norm_counts <- "DESeq2/results/count_tables/rlog_transformed.read.counts.tsv"
+outdir <- "gProfileR_16H"
+path_contrasts <- "DESeq2/results_time_16H/DE_genes_contrasts/"
+path_norm_counts <- "DESeq2/results_time_16H/count_tables/rlog_transformed.read.counts.tsv"
 metadata_path <- "DESeq2/metadata/QSFAN_sample_preparations.tsv"
+final_tab_path <- "DESeq2/results_time_16H/final/final_list_DESeq2.tsv"
 contrast_files <- list.files(path=path_contrasts)
 norm_counts <- read.table(file = path_norm_counts, header = T, row.names = 1, sep = "\t", quote = "")
 metadata <- read.table(file=metadata_path, sep = "\t", header = T, quote="")
+metadata <- metadata[which(metadata$Condition..extraction_time == "16H"),]
+final_tab <- read.table(file = final_tab_path, header=T, sep = "\t", quote ="")
+gene_id <- final_tab[,c("gene_name", "ID")]
 
 
 #Search params
 organism <- "mmusculus"
 short_organism_name <- "mmu"
-datasources <- c("KEGG","REAC", "WP")
+datasources <- c("KEGG","REAC")
 min_set_size <- 1
 max_set_size <- 500
 min_isect_size <- 1
@@ -94,7 +98,9 @@ for (file in contrast_files){
       if (nrow(df) <= 100 & nrow(df) > 0) {
         conditions <- grepl("Condition", colnames(metadata))
         metadata_cond <- as.data.frame(metadata[,conditions])
-        metadata_name <- metadata[,c("QBiC.Code", "Secondary.Name")]
+        metadata_cond_name <- apply(metadata_cond,1,paste, collapse = "_")
+        metadata$cond_name <- metadata_cond_name
+        metadata_name <- metadata[,c("QBiC.Code", "cond_name")]
         row.names(metadata_cond) <- apply(metadata_name,1,paste, collapse = "_")
         
         for (i in c(1:nrow(df))){
